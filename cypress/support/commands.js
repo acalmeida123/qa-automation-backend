@@ -12,7 +12,9 @@ Cypress.Commands.add('getAuthToken', () => {
     }
   }).then((response) => {
     expect(response.status).to.eq(200);
-    Cypress.env('authToken', response.body.access_token);
+    // Cypress.env('authToken', response.body.access_token);
+    cy.wrap(response.body.access_token).as('authToken');
+
   });
 });
 
@@ -20,7 +22,7 @@ Cypress.Commands.add('getAuthToken', () => {
 
 // ***********************************************
 // This example commands.js shows you how to
-// create various custom commands and overwrite
+// create various custom commands and overwrite''
 // existing commands.
 //
 // For more comprehensive examples of custom

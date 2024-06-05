@@ -8,16 +8,19 @@ describe('Tokenização API', () => {
   });
 
   it('Deve realizar a tokenização com sucesso', () => {
-    cy.request({
-      method: 'POST',
-      url: 'https://api-homologacao.getnet.com.br/v1/cards/tokenization',
-      headers: {
-        Authorization: `Bearer ${Cypress.env('authToken')}`
-      },
-      body: tokenRequest
-    }).then((response) => {
-      expect(response.status).to.eq(200);
-      expect(response.body).to.have.property('number_token');
+    cy.get('@authToken').then((authToken) => {
+      cy.request({
+        method: 'POST',
+        url: 'https://api-homologacao.getnet.com.br/v1/cards/tokenization',
+        headers: {
+          // Authorization: `Bearer ${Cypress.env('authToken')}`
+          Authorization: `Bearer ${authToken}`
+        },
+        body: tokenRequest
+      }).then((response) => {
+        expect(response.status).to.eq(200);
+        expect(response.body).to.have.property('number_token');
+      });
     });
   });
 
